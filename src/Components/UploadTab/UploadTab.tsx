@@ -7,6 +7,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+// x Laikinas aprasymas
 const StyledUploadTab = styled.div`
   padding: 30px;
   height: 100%;
@@ -17,12 +18,6 @@ const StyledImg = styled.img`
   margin: 50px;
 `;
 
-const StyledAcordion = styled(Accordion)`
-  border-radius: 40px;
-  background-color: red;
-  overflow: hidden;
-`;
-
 const StyledAccordionDetails = styled(AccordionDetails)`
   text-align: center;
 `;
@@ -30,7 +25,12 @@ const StyledAccordionDetails = styled(AccordionDetails)`
 function UploadTab() {
   return (
     <StyledUploadTab>
-      <StyledAcordion sx={{ borderRadius: '16px' }} elevation={4} square={true}>
+      <Accordion
+        sx={{ borderRadius: '16px' }}
+        elevation={4}
+        square={true}
+        expanded={true}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -45,7 +45,7 @@ function UploadTab() {
           </p>
           <StyledImg src="/IMG/addfiles.jpg" alt="Upload files" />
         </StyledAccordionDetails>
-      </StyledAcordion>
+      </Accordion>
     </StyledUploadTab>
   );
 }

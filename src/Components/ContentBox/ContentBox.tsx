@@ -1,6 +1,7 @@
 import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import UploadTab from '../UploadTab/UploadTab';
+import UploadTypeSelection from '../UploadTypeSelection';
 
 const StyledContentBox = styled(Paper)`
   display: grid;
@@ -15,7 +16,7 @@ const StyledContentBox = styled(Paper)`
 function ContentBox() {
   return (
     <StyledContentBox sx={{ borderRadius: '30px' }} elevation={4}>
-      <UploadTab />
+      <UploadTypeSelection />
       <UploadTab />
     </StyledContentBox>
   );
