@@ -1,7 +1,7 @@
 import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import UploadTab from '../UploadTab/UploadTab';
-import UploadTypeSelection from '../UploadTypeSelection';
+import UploadTypeSelection from '../UploadTab/UploadTypeSelection';
 
 const StyledContentBox = styled(Paper)`
   display: grid;

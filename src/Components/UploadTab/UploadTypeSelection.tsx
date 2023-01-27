@@ -16,11 +16,16 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import styled from 'styled-components';
-import CheckBoxLine from './UploadTab/CheckBoxLine';
+import CheckBoxLine from './CheckBoxLine';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function UploadTypeSelection() {
   const [value, setValue] = React.useState('pdfValue');
+
+  const StyledPaper = styled(Paper)`
+    display: grid;
+    grid-template-columns: auto 1fr;
+  `;
 
   const handleChangePDF = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -44,6 +49,8 @@ function UploadTypeSelection() {
       square={true}
     >
       <Typography>Type of document</Typography>
+
+      <CheckBoxLine />
       <CheckBoxLine />
     </Paper>
   );
