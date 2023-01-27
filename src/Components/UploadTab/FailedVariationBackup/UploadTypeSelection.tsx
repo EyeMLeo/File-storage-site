@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import styled from 'styled-components';
+import CheckBoxLine from '../CheckBoxLine';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function UploadTypeSelection() {
@@ -42,6 +43,14 @@ function UploadTypeSelection() {
       elevation={4}
       square={true}
     >
+      <Radio
+        // checked={selectedValue === 'a'}
+        // onChange={handleChange}
+        value="a"
+        name="radio-buttons"
+        inputProps={{ 'aria-label': 'A' }}
+      />
+      <CheckBoxLine />
       <Typography>Type of document</Typography>
       <FormControl sx={{ width: '100%' }}>
         <RadioGroup

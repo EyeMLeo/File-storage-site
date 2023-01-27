@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import styled from 'styled-components';
+import CheckBoxLine from './UploadTab/CheckBoxLine';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function UploadTypeSelection() {
@@ -43,51 +44,7 @@ function UploadTypeSelection() {
       square={true}
     >
       <Typography>Type of document</Typography>
-      <FormControl sx={{ width: '100%' }}>
-        <RadioGroup
-          aria-labelledby="demo-controlled-radio-buttons-group"
-          name="controlled-radio-buttons-group"
-          value={value}
-          onChange={handleChangePDF}
-        >
-          <FormControlLabel value="pdfValue" control={<Radio />} label="PDF" />
-          <FormControlLabel
-            value="otherFormatValue"
-            control={<Radio />}
-            label={
-              <StyledFormControl>
-                <InputLabel id="demo-simple-select-label">Other</InputLabel>
-                <Select
-                  labelId="demo-simple-select-disabled-label"
-                  id="demo-simple-select-disabled"
-                  value={changeOtherFile}
-                  label="Other"
-                  onChange={handleChangeOtherFile}
-                >
-                  <MenuItem value="jpg">jpg</MenuItem>
-                  <MenuItem value="png">png</MenuItem>
-                  <MenuItem value="xls">xls</MenuItem>
-                </Select>
-              </StyledFormControl>
-            }
-          />
-
-          <StyledFormControl>
-            <InputLabel id="demo-simple-select-label">Other</InputLabel>
-            <Select
-              labelId="demo-simple-select-disabled-label"
-              id="demo-simple-select-disabled"
-              value={changeOtherFile}
-              label="Other"
-              onChange={handleChangeOtherFile}
-            >
-              <MenuItem value="jpg">jpg</MenuItem>
-              <MenuItem value="png">png</MenuItem>
-              <MenuItem value="xls">xls</MenuItem>
-            </Select>
-          </StyledFormControl>
-        </RadioGroup>
-      </FormControl>
+      <CheckBoxLine />
     </Paper>
   );
 }
