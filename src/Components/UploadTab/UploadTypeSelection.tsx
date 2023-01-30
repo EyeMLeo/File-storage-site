@@ -18,6 +18,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 import CheckBoxLine from './CheckBoxLine';
 import SharedPaperStyle from './SharedPaperStyle';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import CreateOutlined from '@mui/icons-material/CreateOutlined';
+import FileNameLine from './FileNameLine';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function UploadTypeSelection() {
@@ -43,6 +46,12 @@ function UploadTypeSelection() {
     /* width: 100%; */
   `;
 
+  const StyledClearAllLink = styled.a`
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    float: right;
+  `;
+
   return (
     <>
       <SharedPaperStyle heading="Type of document" height="180px">
@@ -51,7 +60,10 @@ function UploadTypeSelection() {
       </SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads"></SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads">
-        <h1>asd</h1>
+        <FileNameLine />
+        <FileNameLine />
+        <FileNameLine />
+        <StyledClearAllLink href="">Clear all</StyledClearAllLink>
       </SharedPaperStyle>
     </>
   );

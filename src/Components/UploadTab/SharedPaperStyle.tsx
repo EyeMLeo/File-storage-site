@@ -26,6 +26,7 @@ function SharedPaperStyle({
       square={true}
     >
       <Typography
+        variant="h6"
         sx={{
           ml: 1,
         }}
