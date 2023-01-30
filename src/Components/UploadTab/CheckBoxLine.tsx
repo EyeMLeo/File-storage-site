@@ -21,6 +21,7 @@ const StyledCheckBoxLine = styled(Box)`
 const StyledInputLabel = styled(InputLabel)`
   background-color: white;
   padding-right: 10px;
+  translate: 0 -40%;
 `;
 
 function CheckBoxLine() {
@@ -37,7 +38,7 @@ function CheckBoxLine() {
   };
 
   return (
-    <StyledCheckBoxLine>
+    <StyledCheckBoxLine sx={{ pb: 0, pl: 0 }}>
       <Radio
         checked={selectedValue === 'a'}
         onChange={handleChange}
@@ -45,14 +46,14 @@ function CheckBoxLine() {
         name="radio-buttons"
         inputProps={{ 'aria-label': 'A' }}
       />
-      <FormControl sx={{ width: '100%' }}>
+      <FormControl sx={{ width: '100%', height: '35px' }}>
         <StyledInputLabel id="demo-simple-select-label">
           Other formats
         </StyledInputLabel>
         <Select
           sx={{
-            boxShadow: 4,
-            borderRadius: '16px',
+            boxShadow: 3,
+            borderRadius: '10px',
             border: 0,
             overflow: 'hidden',
           }}
