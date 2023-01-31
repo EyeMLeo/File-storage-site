@@ -48,6 +48,8 @@ const demoArray = [
   { firstName: 'Peter', lastName: 'Jones' },
 ];
 
+const demoArray2: number[] = [1, 1, 3, 4, 5];
+
 function UploadTypeSelection() {
   const [value, setValue] = React.useState('pdfValue');
 
@@ -61,13 +63,21 @@ function UploadTypeSelection() {
     setChangeOtherFile(event.target.value);
   };
 
-  const [displayNames, setdisplayNames] = React.useState([]);
+  // const [displayNames, setdisplayNames] = React.useState([]);
+
+  let displayNames: any = React.useRef([]);
 
   React.useEffect(() => {
     firebseDataNameHander().then((res: any) => {
-      console.log('resa ===', res);
-      setdisplayNames(res);
-      console.log('displayNames ===', displayNames);
+      displayNames = res;
+
+      console.log('displayNames ===', displayNames[0]);
+      console.log('demoArray ===', demoArray);
+      console.log('displayNames ===', typeof displayNames);
+      console.log('res type ===', typeof res);
+      console.log('demoArray type ===', typeof demoArray);
+      console.log('demoArray2 type ===', typeof demoArray2);
+      console.log('Object.keys(displayNames) ===', Object.keys(displayNames));
     });
   }, []);
 
@@ -85,13 +95,15 @@ function UploadTypeSelection() {
       </SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads"></SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads">
+        {/* {displayNames.forEach((element: any) => console.log(element))} */}
+        {/* 
         {displayNames.map((element: any) => {
           console.log('element ===', element);
-          return <FileNameLine />;
-        })}
+          return <FileNameLine fileName={element.generation} />;
+        })} */}
         {demoArray.map((element: any) => {
           console.log('element ===', element);
-          return <FileNameLine />;
+          return <FileNameLine fileName={element.firstName} />;
         })}
 
         {/* <FileNameLine fileName="asd" /> */}
