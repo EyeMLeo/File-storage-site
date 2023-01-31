@@ -21,15 +21,35 @@ import SharedPaperStyle from './SharedPaperStyle';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CreateOutlined from '@mui/icons-material/CreateOutlined';
 import FileNameLine from './FileNameLine';
+import {
+  listAll,
+  storage,
+  firebseMetaDataHander,
+  savadFirebaseDataNames,
+  firebseDataNameHander,
+} from '../../Firebase';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const StyledPaper = styled(Paper)`
+  display: grid;
+  grid-template-columns: auto 1fr;
+`;
+
+const StyledClearAllLink = styled.a`
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  float: right;
+`;
+
+const demoArray = [
+  { firstName: 'John', lastName: 'Doe' },
+  { firstName: 'Anna', lastName: 'Smith' },
+  { firstName: 'Peter', lastName: 'Jones' },
+  { firstName: 'Peter', lastName: 'Jones' },
+];
 
 function UploadTypeSelection() {
   const [value, setValue] = React.useState('pdfValue');
-
-  const StyledPaper = styled(Paper)`
-    display: grid;
-    grid-template-columns: auto 1fr;
-  `;
 
   const handleChangePDF = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -41,16 +61,21 @@ function UploadTypeSelection() {
     setChangeOtherFile(event.target.value);
   };
 
-  const StyledFormControl = styled(FormControl)`
-    /* min-width: 100%; */
-    /* width: 100%; */
-  `;
+  const [displayNames, setdisplayNames] = React.useState([]);
 
-  const StyledClearAllLink = styled.a`
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    float: right;
-  `;
+  React.useEffect(() => {
+    firebseDataNameHander().then((res: any) => {
+      console.log('resa ===', res);
+      setdisplayNames(res);
+      console.log('displayNames ===', displayNames);
+    });
+  }, []);
+
+  // React.useEffect(() => {
+  //   firebseDataNameHander()
+  //     .then((res: any) => res.json())
+  //     .then((json) => console.log(json));
+  // }, []);
 
   return (
     <>
@@ -60,9 +85,18 @@ function UploadTypeSelection() {
       </SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads"></SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads">
-        <FileNameLine />
-        <FileNameLine />
-        <FileNameLine />
+        {displayNames.map((element: any) => {
+          console.log('element ===', element);
+          return <FileNameLine />;
+        })}
+        {demoArray.map((element: any) => {
+          console.log('element ===', element);
+          return <FileNameLine />;
+        })}
+
+        {/* <FileNameLine fileName="asd" /> */}
+        {/* <FileNameLine /> */}
+        {/* <FileNameLine /> */}
         <StyledClearAllLink href="">Clear all</StyledClearAllLink>
       </SharedPaperStyle>
     </>

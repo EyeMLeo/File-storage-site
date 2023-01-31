@@ -4,6 +4,7 @@ import './App.css';
 import Aside from './Components/Aside/Aside';
 import Header from './Components/Header/Header';
 import Main from './Components/Main/Main';
+import { Provider } from 'react-redux';
 
 const StyledMain = styled.div`
   min-height: 100vh;

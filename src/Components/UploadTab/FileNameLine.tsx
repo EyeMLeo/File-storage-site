@@ -20,6 +20,11 @@ import CheckBoxLine from './CheckBoxLine';
 import SharedPaperStyle from './SharedPaperStyle';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CreateOutlined from '@mui/icons-material/CreateOutlined';
+import { getStorage, ref, listAll } from 'firebase/storage';
+
+interface FileNameLineProps {
+  fileName?: string;
+}
 
 const StyledDiv = styled.div`
   display: grid;
@@ -37,7 +42,7 @@ const StyledTypography = styled(Typography)`
   padding: 0 0.8rem;
 `;
 
-function FileNameLine() {
+function FileNameLine({ fileName = 'File name 123.pdf' }: FileNameLineProps) {
   return (
     <StyledDiv>
       <StyledFileNamePaper
@@ -47,7 +52,7 @@ function FileNameLine() {
           mt: 1,
         }}
       >
-        <Typography sx={{ color: 'text.primary' }}>File name 1.pdf</Typography>
+        <Typography sx={{ color: 'text.primary' }}>{fileName}</Typography>
         <div>
           <CreateOutlined sx={{ color: 'text.secondary' }} />
           <DeleteOutlineRoundedIcon sx={{ color: 'text.secondary' }} />
