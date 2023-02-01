@@ -4,7 +4,7 @@ import { Paper, Typography } from '@mui/material';
 interface SharedPaperStyleProps {
   heading?: string;
   height?: string;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 function SharedPaperStyle({

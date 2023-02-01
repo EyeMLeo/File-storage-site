@@ -21,13 +21,8 @@ import SharedPaperStyle from './SharedPaperStyle';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CreateOutlined from '@mui/icons-material/CreateOutlined';
 import FileNameLine from './FileNameLine';
-import {
-  listAll,
-  storage,
-  firebseMetaDataHander,
-  savadFirebaseDataNames,
-  firebseDataNameHander,
-} from '../../Firebase';
+import { listAll, storage, firebseDataNameHander } from '../../Firebase';
+import { FullMetadata } from 'firebase/storage';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const StyledPaper = styled(Paper)`
@@ -64,24 +59,18 @@ function UploadTypeSelection() {
   };
 
   // const [displayNames, setdisplayNames] = React.useState([]);
-  let displayNames: any = React.useRef([]);
-  const [displayNames2, setDisplayNames2] = React.useState<any>(displayNames);
+  // let displayNames: any = React.useRef([]);
+  const [displayNames, setDisplayNames] = React.useState<FullMetadata[]>([]);
 
   React.useEffect(() => {
-    firebseDataNameHander().then((res: any) => {
-      displayNames = res;
+    firebseDataNameHander().then((res) => {
+      // displayNames = res;
       console.log('displayNames.values()  ===', displayNames.keys());
       // setDisplayNames2((prev: any) => [...prev, res]);
-      setDisplayNames2(displayNames);
+      // setDisplayNames2(displayNames);
+      setDisplayNames(res);
+
       console.log('displayNames ===', displayNames);
-      console.log('displayNames2 ===', displayNames2);
-      // console.log('displayNames ===', displayNames[0]);
-      // console.log('demoArray ===', demoArray);
-      // console.log('displayNames ===', typeof displayNames);
-      // console.log('res type ===', typeof res);
-      // console.log('demoArray type ===', typeof demoArray);
-      // console.log('demoArray2 type ===', typeof demoArray2);
-      // console.log('Object.keys(displayNames) ===', Object.keys(displayNames));
     });
   }, []);
 
@@ -100,14 +89,15 @@ function UploadTypeSelection() {
       <SharedPaperStyle heading="List of uploads"></SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads">
         {/* {displayNames.forEach((element: any) => console.log(element))} */}
-        {/* 
-        {displayNames.map((element: any) => {
+
+        {displayNames.map((element) => {
           console.log('element ===', element);
-          return <FileNameLine fileName={element.generation} />;
-        })} */}
-        {demoArray.map((element: any) => {
-          console.log('element ===', element);
-          return <FileNameLine fileName={element.firstName} />;
+          return (
+            <FileNameLine
+              key={element.generation}
+              fileName={element.fullPath}
+            />
+          );
         })}
         {/* <FileNameLine fileName="asd" /> */}
         {/* <FileNameLine /> */}
