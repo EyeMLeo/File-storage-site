@@ -64,20 +64,24 @@ function UploadTypeSelection() {
   };
 
   // const [displayNames, setdisplayNames] = React.useState([]);
-
   let displayNames: any = React.useRef([]);
+  const [displayNames2, setDisplayNames2] = React.useState<any>(displayNames);
 
   React.useEffect(() => {
     firebseDataNameHander().then((res: any) => {
       displayNames = res;
-
-      console.log('displayNames ===', displayNames[0]);
-      console.log('demoArray ===', demoArray);
-      console.log('displayNames ===', typeof displayNames);
-      console.log('res type ===', typeof res);
-      console.log('demoArray type ===', typeof demoArray);
-      console.log('demoArray2 type ===', typeof demoArray2);
-      console.log('Object.keys(displayNames) ===', Object.keys(displayNames));
+      console.log('displayNames.values()  ===', displayNames.keys());
+      // setDisplayNames2((prev: any) => [...prev, res]);
+      setDisplayNames2(displayNames);
+      console.log('displayNames ===', displayNames);
+      console.log('displayNames2 ===', displayNames2);
+      // console.log('displayNames ===', displayNames[0]);
+      // console.log('demoArray ===', demoArray);
+      // console.log('displayNames ===', typeof displayNames);
+      // console.log('res type ===', typeof res);
+      // console.log('demoArray type ===', typeof demoArray);
+      // console.log('demoArray2 type ===', typeof demoArray2);
+      // console.log('Object.keys(displayNames) ===', Object.keys(displayNames));
     });
   }, []);
 
@@ -105,7 +109,6 @@ function UploadTypeSelection() {
           console.log('element ===', element);
           return <FileNameLine fileName={element.firstName} />;
         })}
-
         {/* <FileNameLine fileName="asd" /> */}
         {/* <FileNameLine /> */}
         {/* <FileNameLine /> */}
