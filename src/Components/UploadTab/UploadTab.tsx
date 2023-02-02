@@ -16,7 +16,7 @@ const StyledUploadTab = styled.div`
 `;
 
 const StyledImg = styled.img`
-  max-width: 150px;
+  max-height: 90px;
   margin: 50px;
 `;
 
@@ -28,8 +28,8 @@ function UploadTab() {
   const [uploadFile, setUploadFile] = React.useState<FileList | File[] | null>(
     null
   );
-  // FileList | null
-  // HTMLInputElement.files: FileList | null
+  const [isDragging, setIsDragging] = React.useState(false);
+
   function uploadFileFn() {
     if (uploadFile === null) return;
     const fileRef = ref(storage, `${uploadFile[0].name}`);
@@ -40,6 +40,25 @@ function UploadTab() {
       alert('File uploaded');
     });
   }
+
+  function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    setIsDragging(true);
+  }
+  function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    setIsDragging(false);
+  }
+  function onDropHandler(e: any) {
+    e.preventDefault();
+    let files = [...e.dataTransfer.files];
+    setUploadFile(files);
+    console.log(uploadFile);
+    console.log('files ===', files);
+    uploadFileFn();
+    setIsDragging(false);
+  }
+
   return (
     <StyledUploadTab>
       <Accordion
@@ -55,23 +74,41 @@ function UploadTab() {
         >
           <Typography>Select more files for upload</Typography>
         </AccordionSummary>
-        <StyledAccordionDetails>
-          <input
-            type="file"
-            onChange={(event) => {
-              // if (uploadFile === null) return;
-              // else {
-              setUploadFile(event.target.files);
-              // }
-            }}
-          />
-          <button onClick={uploadFileFn}>Upload</button>
-          <h3>Select files</h3>
-          <p>
-            drop files here or click <a href="">browse</a>
-          </p>
+        <StyledAccordionDetails
+          sx={{ bgcolor: isDragging ? '#e0f2f1' : '' }}
+          style={
+            isDragging
+              ? {
+                  borderColor: 'teal',
+                }
+              : {}
+          }
+          onDragStart={(e) => dragStartHandler(e)}
+          onDragLeave={(e) => dragLeaveHandler(e)}
+          onDragOver={(e) => dragStartHandler(e)}
+          onDrop={(e) => onDropHandler(e)}
+        >
+          {!isDragging && (
+            <>
+              <input
+                type="file"
+                onChange={(event) => {
+                  setUploadFile(event.target.files);
+                }}
+              />
+              <button onClick={uploadFileFn}>Upload</button>
+              <h3>Select files</h3>
+              <p>
+                drop files here or click <a href="">browse</a>
+              </p>
+            </>
+          )}
+          {isDragging && <h3>Drop files here</h3>}
 
-          <StyledImg src="/IMG/addfiles.jpg" alt="Upload files" />
+          <StyledImg
+            src={!isDragging ? '/IMG/addfiles.jpg' : '/IMG/arrow.png'}
+            alt="Upload files"
+          />
         </StyledAccordionDetails>
       </Accordion>
     </StyledUploadTab>
