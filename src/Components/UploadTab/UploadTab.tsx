@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { storage } from '../../Firebase';
 import { ref, uploadBytes } from 'firebase/storage';
+import { Button } from '@mui/material';
 
 // x Laikinas aprasymas
 const StyledUploadTab = styled.div`
@@ -22,6 +23,24 @@ const StyledImg = styled.img`
 
 const StyledAccordionDetails = styled(AccordionDetails)`
   text-align: center;
+  text-align: -webkit-center;
+`;
+
+const HideFileInput = styled.input`
+  display: none;
+`;
+
+const StyledBrowseLabel = styled.label`
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const StyledButton = styled(Button)`
+  display: block;
+  min-width: 200px;
+  margin-top: 0.5rem;
+  border: 1px black solid;
+  color: 'primary.main';
 `;
 
 function UploadTab() {
@@ -35,9 +54,10 @@ function UploadTab() {
     const fileRef = ref(storage, `${uploadFile[0].name}`);
     console.log('uploadFile ===', uploadFile[0]);
     console.log('Object values ===', Object.values(uploadFile[0]));
-
     uploadBytes(fileRef, uploadFile[0]).then(() => {
       alert('File uploaded');
+      setUploadFile(null);
+      console.log('uploadFileAlert ===', uploadFile);
     });
   }
 
@@ -80,6 +100,9 @@ function UploadTab() {
             isDragging
               ? {
                   borderColor: 'teal',
+                  boxSizing: 'border-box',
+                  border: 'dashed 5px green',
+                  borderRadius: '15px',
                 }
               : {}
           }
@@ -90,23 +113,57 @@ function UploadTab() {
         >
           {!isDragging && (
             <>
-              <input
-                type="file"
-                onChange={(event) => {
-                  setUploadFile(event.target.files);
-                }}
-              />
-              <button onClick={uploadFileFn}>Upload</button>
-              <h3>Select files</h3>
-              <p>
-                drop files here or click <a href="">browse</a>
-              </p>
+              {uploadFile && (
+                <>
+                  <h3>{`File name - ${uploadFile[0].name}`}</h3>
+                  <StyledButton
+                    sx={{ display: 'block', minWidth: '200px', mt: 1 }}
+                    variant="contained"
+                    onClick={uploadFileFn}
+                  >
+                    Confirm upload
+                  </StyledButton>
+                  <StyledButton
+                    sx={{ display: 'block', minWidth: '200px', mt: 1 }}
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                      setUploadFile(null);
+                    }}
+                  >
+                    Cancel
+                  </StyledButton>
+                </>
+              )}
+
+              {!uploadFile && (
+                <>
+                  <h3>Select files</h3>
+                  <p>
+                    Drop files here or click{' '}
+                    <StyledBrowseLabel htmlFor="file">browse</StyledBrowseLabel>
+                  </p>
+                  <HideFileInput
+                    type="file"
+                    id="file"
+                    onChange={(event) => {
+                      setUploadFile(event.target.files);
+                    }}
+                  />
+                </>
+              )}
             </>
           )}
           {isDragging && <h3>Drop files here</h3>}
-
           <StyledImg
-            src={!isDragging ? '/IMG/addfiles.jpg' : '/IMG/arrow.png'}
+            src={
+              // Terenary inside terenary
+              isDragging
+                ? '/IMG/arrow.png'
+                : uploadFile
+                ? '/IMG/check.png'
+                : '/IMG/addfiles.jpg'
+            }
             alt="Upload files"
           />
         </StyledAccordionDetails>

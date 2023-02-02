@@ -29,28 +29,6 @@ const storage = getStorage();
 // Create a reference under which you want to list
 const listRef = ref(storage, '');
 
-// async function firebseDataNameHander() {
-//   return new Promise((resolve, reject) => {
-//     listAll(listRef)
-//       .then(async (res) => {
-//         let names: FullMetadata[] = [];
-
-//         res.items.forEach(async (itemRef) => {
-//           await getMetadata(itemRef).then((obj) => {
-//             names.push(obj);
-//           });
-//         });
-//         console.log('names ===', names);
-//         resolve(names);
-//       })
-
-//       .catch((error) => {
-//         console.log(error);
-//         reject(error);
-//       });
-//   });
-// }
-
 async function firebseDataNameHander(): Promise<FullMetadata[]> {
   return new Promise((resolve, reject) => {
     listAll(listRef)
@@ -71,47 +49,5 @@ async function firebseDataNameHander(): Promise<FullMetadata[]> {
       });
   });
 }
-
-// function firebseDataNameHander() {
-//   listAll(listRef)
-//     .then((res) => {
-//       let names: FullMetadata[] = [];
-//       res.items.forEach((itemRef) => {
-//         getMetadata(itemRef).then((url) => {
-//           names.push(url);
-//         });
-//       });
-//     })
-
-//     .catch((error) => {
-//       console.log(error);
-//     });
-//   console.log('Final names ===', names);
-//   return names;
-// }
-
-// Find all the prefixes and items.
-listAll(listRef)
-  .then((res) => {
-    // console.log('res ===', res);
-    // res.prefixes.forEach((folderRef) => {
-    //   // All the prefixes under listRef.
-    //   // You may call listAll() recursively on them.
-    // });
-    // res.items.forEach((itemRef) => {
-    //   // All the items under listRef.
-    //   console.log('itemRef ===', itemRef);
-    //   getMetadata(itemRef).then((url) => {
-    //     console.log('url ===', url);
-    //   });
-    // });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-//----- Firebase storage code
-
-// function getFullFirebaseList(){
-// }
 
 export { firebseDataNameHander, storage, listAll, app as default };
