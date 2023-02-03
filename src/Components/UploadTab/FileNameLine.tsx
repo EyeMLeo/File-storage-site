@@ -20,10 +20,14 @@ import CheckBoxLine from './CheckBoxLine';
 import SharedPaperStyle from './SharedPaperStyle';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CreateOutlined from '@mui/icons-material/CreateOutlined';
-import { getStorage, ref, listAll } from 'firebase/storage';
+import { getStorage, ref, listAll, deleteObject } from 'firebase/storage';
+import { storage } from '../../Firebase';
 
 interface FileNameLineProps {
   fileName?: string;
+  deleteAction?: Function;
+  setDisplayNames?: Function;
+  key: any;
 }
 
 const StyledDiv = styled.div`
@@ -43,8 +47,20 @@ const StyledTypography = styled(Typography)`
 `;
 
 function FileNameLine({ fileName = 'File name 123.pdf' }: FileNameLineProps) {
+  function deleteFileFromFirebase(fileName: string) {
+    const deleteASingleFile = ref(storage, fileName);
+    // Delete the file
+    deleteObject(deleteASingleFile)
+      .then(() => {
+        // File deleted successfully
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+      });
+  }
+
   return (
-    <StyledDiv>
+    <StyledDiv id={`${key}`}>
       <StyledFileNamePaper
         elevation={3}
         sx={{
@@ -55,7 +71,20 @@ function FileNameLine({ fileName = 'File name 123.pdf' }: FileNameLineProps) {
         <Typography sx={{ color: 'text.primary' }}>{fileName}</Typography>
         <div>
           <CreateOutlined sx={{ color: 'text.secondary' }} />
-          <DeleteOutlineRoundedIcon sx={{ color: 'text.secondary' }} />
+          <DeleteOutlineRoundedIcon
+            onClick={(e: any) => {
+              console.log('clicked');
+              deleteFileFromFirebase(fileName);
+
+              console.log(
+                'e ===',
+                e.target.parentElement.parentElement.parentElement.id
+              );
+
+              // remove(e.target);
+            }}
+            sx={{ color: 'text.secondary' }}
+          />
         </div>
       </StyledFileNamePaper>
       <StyledTypography sx={{ color: 'text.disabled' }}>Main</StyledTypography>

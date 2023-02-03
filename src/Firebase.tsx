@@ -7,6 +7,7 @@ import {
   getDownloadURL,
   getMetadata,
   FullMetadata,
+  deleteObject,
 } from 'firebase/storage';
 import * as React from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -29,6 +30,8 @@ const storage = getStorage();
 // Create a reference under which you want to list
 const listRef = ref(storage, '');
 
+// function to get firebase data and save it to array, returning it as a promise
+// without promise Im unable to save data to useState
 async function firebseDataNameHander(): Promise<FullMetadata[]> {
   return new Promise((resolve, reject) => {
     listAll(listRef)

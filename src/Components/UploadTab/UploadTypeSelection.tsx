@@ -22,7 +22,7 @@ import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CreateOutlined from '@mui/icons-material/CreateOutlined';
 import FileNameLine from './FileNameLine';
 import { listAll, storage, firebseDataNameHander } from '../../Firebase';
-import { FullMetadata } from 'firebase/storage';
+import { deleteObject, FullMetadata, ref } from 'firebase/storage';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const StyledPaper = styled(Paper)`
@@ -35,15 +35,6 @@ const StyledClearAllLink = styled.a`
   margin-bottom: 0.5rem;
   float: right;
 `;
-
-const demoArray = [
-  { firstName: 'John', lastName: 'Doe' },
-  { firstName: 'Anna', lastName: 'Smith' },
-  { firstName: 'Peter', lastName: 'Jones' },
-  { firstName: 'Peter', lastName: 'Jones' },
-];
-
-const demoArray2: number[] = [1, 1, 3, 4, 5];
 
 function UploadTypeSelection() {
   const [value, setValue] = React.useState('pdfValue');
@@ -74,34 +65,25 @@ function UploadTypeSelection() {
     });
   }, []);
 
-  // React.useEffect(() => {
-  //   firebseDataNameHander()
-  //     .then((res: any) => res.json())
-  //     .then((json) => console.log(json));
-  // }, []);
-
   return (
     <>
       <SharedPaperStyle heading="Type of document" height="180px">
         <CheckBoxLine />
         <CheckBoxLine />
       </SharedPaperStyle>
-      <SharedPaperStyle heading="List of uploads"></SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads">
-        {/* {displayNames.forEach((element: any) => console.log(element))} */}
-
         {displayNames.map((element) => {
           console.log('element ===', element);
           return (
             <FileNameLine
+              id={`${element.generation}`}
               key={element.generation}
               fileName={element.fullPath}
+              setDisplayNames={setDisplayNames}
             />
           );
         })}
-        {/* <FileNameLine fileName="asd" /> */}
-        {/* <FileNameLine /> */}
-        {/* <FileNameLine /> */}
+
         <StyledClearAllLink href="">Clear all</StyledClearAllLink>
       </SharedPaperStyle>
     </>
