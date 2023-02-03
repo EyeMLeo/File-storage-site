@@ -30,7 +30,7 @@ const StyledPaper = styled(Paper)`
   grid-template-columns: auto 1fr;
 `;
 
-const StyledClearAllLink = styled.a`
+const StyledClearAllLink = styled.button`
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   float: right;
@@ -50,20 +50,24 @@ function UploadTypeSelection() {
   };
 
   // const [displayNames, setdisplayNames] = React.useState([]);
-  // let displayNames: any = React.useRef([]);
   const [displayNames, setDisplayNames] = React.useState<FullMetadata[]>([]);
 
   React.useEffect(() => {
     firebseDataNameHander().then((res) => {
-      // displayNames = res;
-      console.log('displayNames.values()  ===', displayNames.keys());
-      // setDisplayNames2((prev: any) => [...prev, res]);
-      // setDisplayNames2(displayNames);
       setDisplayNames(res);
-
-      console.log('displayNames ===', displayNames);
     });
   }, []);
+
+  function deleteALLFilesFromFirebase() {
+    displayNames.forEach((element) => {
+      // Firebase Part
+      const deleteASingleFile = ref(storage, element.fullPath);
+      // Delete the file
+      deleteObject(deleteASingleFile);
+    });
+    setDisplayNames([]);
+    alert('delete comlete');
+  }
 
   return (
     <>
@@ -73,18 +77,20 @@ function UploadTypeSelection() {
       </SharedPaperStyle>
       <SharedPaperStyle heading="List of uploads">
         {displayNames.map((element) => {
-          console.log('element ===', element);
           return (
             <FileNameLine
-              id={`${element.generation}`}
+              idPass={`${element.generation}`}
               key={element.generation}
               fileName={element.fullPath}
-              setDisplayNames={setDisplayNames}
+              arr={displayNames}
+              setArr={setDisplayNames}
             />
           );
         })}
 
-        <StyledClearAllLink href="">Clear all</StyledClearAllLink>
+        <StyledClearAllLink onClick={deleteALLFilesFromFirebase}>
+          Clear all
+        </StyledClearAllLink>
       </SharedPaperStyle>
     </>
   );

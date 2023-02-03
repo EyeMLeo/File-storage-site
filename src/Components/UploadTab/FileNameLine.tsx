@@ -20,14 +20,21 @@ import CheckBoxLine from './CheckBoxLine';
 import SharedPaperStyle from './SharedPaperStyle';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CreateOutlined from '@mui/icons-material/CreateOutlined';
-import { getStorage, ref, listAll, deleteObject } from 'firebase/storage';
+import {
+  getStorage,
+  ref,
+  listAll,
+  deleteObject,
+  FullMetadata,
+} from 'firebase/storage';
 import { storage } from '../../Firebase';
 
 interface FileNameLineProps {
   fileName?: string;
   deleteAction?: Function;
-  setDisplayNames?: Function;
-  key: any;
+  idPass: number | string;
+  arr: FullMetadata[];
+  setArr: Function;
 }
 
 const StyledDiv = styled.div`
@@ -46,8 +53,19 @@ const StyledTypography = styled(Typography)`
   padding: 0 0.8rem;
 `;
 
-function FileNameLine({ fileName = 'File name 123.pdf' }: FileNameLineProps) {
+function FileNameLine({
+  fileName = 'File name 123.pdf',
+  idPass,
+  arr,
+  setArr,
+}: FileNameLineProps) {
   function deleteFileFromFirebase(fileName: string) {
+    // DOM part
+    const newArray = arr.filter((item) => item.fullPath !== fileName);
+    setArr(newArray);
+    //x DOM part
+
+    // Firebase Part
     const deleteASingleFile = ref(storage, fileName);
     // Delete the file
     deleteObject(deleteASingleFile)
@@ -57,10 +75,11 @@ function FileNameLine({ fileName = 'File name 123.pdf' }: FileNameLineProps) {
       .catch((error) => {
         // Uh-oh, an error occurred!
       });
+    // Firebase Part
   }
 
   return (
-    <StyledDiv id={`${key}`}>
+    <StyledDiv id={`${idPass}`}>
       <StyledFileNamePaper
         elevation={3}
         sx={{
@@ -72,14 +91,8 @@ function FileNameLine({ fileName = 'File name 123.pdf' }: FileNameLineProps) {
         <div>
           <CreateOutlined sx={{ color: 'text.secondary' }} />
           <DeleteOutlineRoundedIcon
-            onClick={(e: any) => {
-              console.log('clicked');
+            onClick={() => {
               deleteFileFromFirebase(fileName);
-
-              console.log(
-                'e ===',
-                e.target.parentElement.parentElement.parentElement.id
-              );
 
               // remove(e.target);
             }}

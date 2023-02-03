@@ -69,7 +69,7 @@ function UploadTab() {
     e.preventDefault();
     setIsDragging(false);
   }
-  function onDropHandler(e: any) {
+  function onDropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     let files = [...e.dataTransfer.files];
     setUploadFile(files);
