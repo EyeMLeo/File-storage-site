@@ -105,9 +105,7 @@ function UploadTypeSelection() {
 
         <StyledClearAllLink
           onClick={() => {
-            // setDeleteModal(true);
             setDeleteModalTogle();
-            // deleteALLFilesFromFirebase
           }}
         >
           Clear all
