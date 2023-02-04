@@ -16,7 +16,6 @@ const StyledMain = styled.div`
 function App() {
   return (
     <StyledMain className="App">
-      <DialogAll />
       <Aside />
       <Main />
     </StyledMain>

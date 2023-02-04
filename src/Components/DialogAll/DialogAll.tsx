@@ -7,26 +7,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+
+interface DialogAllProps {
+  actionToProceed: Function;
+  displayHandler: any;
+  display: boolean;
+  text: string;
+}
 
 const StyledModalBox = styled.div`
   padding: 30px 15px 10px 25px;
   overflow: hidden;
 `;
 
-function DialogAll() {
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+function DialogAll(props: DialogAllProps) {
+  const [open, setOpen] = React.useState(props.display);
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open alert dialog
-      </Button>
+      </Button> */}
       <Dialog
         sx={{
           '& .MuiDialog-container': {
@@ -38,7 +39,7 @@ function DialogAll() {
           },
         }}
         open={open}
-        onClose={handleClose}
+        onClose={props.displayHandler}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -52,22 +53,24 @@ function DialogAll() {
             }}
             id="alert-dialog-description"
           >
-            Are you sure you want to delete all files? You'll have to start
-            uploading process fromthe very beginning.
+            {props.text}
           </DialogContentText>
           <DialogActions>
             <Button
               sx={{ px: 3, mr: 1.5 }}
               color="secondary"
               variant="outlined"
-              onClick={handleClose}
+              onClick={props.displayHandler}
             >
               Cancel
             </Button>
             <Button
               color="secondary"
               variant="contained"
-              onClick={handleClose}
+              onClick={() => {
+                props.actionToProceed();
+                props.displayHandler();
+              }}
               autoFocus
               sx={{ px: 3 }}
             >

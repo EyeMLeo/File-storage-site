@@ -23,6 +23,8 @@ import CreateOutlined from '@mui/icons-material/CreateOutlined';
 import FileNameLine from './FileNameLine';
 import { listAll, storage, firebseDataNameHander } from '../../Firebase';
 import { deleteObject, FullMetadata, ref } from 'firebase/storage';
+import { useSelector } from 'react-redux';
+import DialogAll from '../DialogAll/DialogAll';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const StyledPaper = styled(Paper)`
@@ -41,6 +43,17 @@ const StyledClearAllLink = styled.p`
 `;
 
 function UploadTypeSelection() {
+  const [deleteModal, setDeleteModal] = React.useState(false);
+
+  function setDeleteModalTogle() {
+    setDeleteModal((prev) => !prev);
+  }
+
+  const ReducerModal = useSelector((state: any) => {
+    state;
+    // console.log('state ===', state.ReducerModal);
+  });
+
   const [value, setValue] = React.useState('pdfValue');
 
   const handleChangePDF = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,9 +83,7 @@ function UploadTypeSelection() {
       deleteObject(deleteASingleFile);
     });
     setDisplayNames([]);
-    alert('delete comlete');
   }
-
   return (
     <>
       <SharedPaperStyle heading="Type of document" height="180px">
@@ -92,9 +103,25 @@ function UploadTypeSelection() {
           );
         })}
 
-        <StyledClearAllLink onClick={deleteALLFilesFromFirebase}>
+        <StyledClearAllLink
+          onClick={() => {
+            // setDeleteModal(true);
+            setDeleteModalTogle();
+            // deleteALLFilesFromFirebase
+          }}
+        >
           Clear all
         </StyledClearAllLink>
+
+        {deleteModal && (
+          <DialogAll
+            text="Are you sure you want to delete all files? You'll have to start
+          uploading process fromthe very beginning."
+            display={deleteModal}
+            displayHandler={setDeleteModalTogle}
+            actionToProceed={deleteALLFilesFromFirebase}
+          />
+        )}
       </SharedPaperStyle>
     </>
   );

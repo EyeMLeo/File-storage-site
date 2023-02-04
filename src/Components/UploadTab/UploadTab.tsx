@@ -52,12 +52,11 @@ function UploadTab() {
   function uploadFileFn() {
     if (uploadFile === null) return;
     const fileRef = ref(storage, `${uploadFile[0].name}`);
-    console.log('uploadFile ===', uploadFile[0]);
-    console.log('Object values ===', Object.values(uploadFile[0]));
+    // console.log('uploadFile ===', uploadFile[0]);
+    // console.log('Object values ===', Object.values(uploadFile[0]));
     uploadBytes(fileRef, uploadFile[0]).then(() => {
       alert('File uploaded');
       setUploadFile(null);
-      console.log('uploadFileAlert ===', uploadFile);
     });
   }
 
@@ -73,8 +72,6 @@ function UploadTab() {
     e.preventDefault();
     let files = [...e.dataTransfer.files];
     setUploadFile(files);
-    console.log(uploadFile);
-    console.log('files ===', files);
     uploadFileFn();
     setIsDragging(false);
   }
