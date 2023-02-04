@@ -19,6 +19,17 @@ const theme = createTheme({
       main: '#ff4842',
     },
   },
+  typography: {
+    fontFamily: [
+      '"Segoe UI"',
+      // 'sans-serif',
+      // '"Segoe UI Emoji"',
+      // '"Segoe UI Symbol"',
+    ].join(','),
+    button: {
+      textTransform: 'none',
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

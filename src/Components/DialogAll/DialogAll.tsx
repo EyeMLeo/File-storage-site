@@ -8,22 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
 
-const styleForModal = {
-  pt: 3,
-  pl: 2,
-  pr: 2,
-  pb: 1,
-  borderRadius: '50px',
-  overflow: 'hidden',
-};
-
 const StyledModalBox = styled.div`
-  padding: 25px 15px 10px 25px;
+  padding: 30px 15px 10px 25px;
   overflow: hidden;
-`;
-
-const StyledDialogContentText = styled(DialogContentText)`
-  font-weight: bold;
 `;
 
 function DialogAll() {
@@ -45,7 +32,7 @@ function DialogAll() {
           '& .MuiDialog-container': {
             '& .MuiPaper-root': {
               width: '100%',
-              maxWidth: '500px',
+              maxWidth: '600px',
               borderRadius: '25px',
             },
           },
@@ -56,12 +43,25 @@ function DialogAll() {
         aria-describedby="alert-dialog-description"
       >
         <StyledModalBox>
-          <StyledDialogContentText id="alert-dialog-description">
-            Are you sure you want to delete all files? You'll haveto start
+          <DialogContentText
+            sx={{
+              color: 'text.secondary',
+              fontWeight: '500',
+              fontSize: 18,
+              mb: 2,
+            }}
+            id="alert-dialog-description"
+          >
+            Are you sure you want to delete all files? You'll have to start
             uploading process fromthe very beginning.
-          </StyledDialogContentText>
+          </DialogContentText>
           <DialogActions>
-            <Button color="secondary" variant="outlined" onClick={handleClose}>
+            <Button
+              sx={{ px: 3, mr: 1.5 }}
+              color="secondary"
+              variant="outlined"
+              onClick={handleClose}
+            >
               Cancel
             </Button>
             <Button
@@ -69,6 +69,7 @@ function DialogAll() {
               variant="contained"
               onClick={handleClose}
               autoFocus
+              sx={{ px: 3 }}
             >
               Confirm
             </Button>
