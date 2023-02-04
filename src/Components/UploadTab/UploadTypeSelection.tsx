@@ -30,7 +30,11 @@ const StyledPaper = styled(Paper)`
   grid-template-columns: auto 1fr;
 `;
 
-const StyledClearAllLink = styled.button`
+const StyledClearAllLink = styled.p`
+  padding: 0.1rem 0;
+  border-bottom: 1px solid black;
+  /* text-decoration: underline; */
+  cursor: pointer;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   float: right;

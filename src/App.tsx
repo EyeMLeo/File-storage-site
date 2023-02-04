@@ -4,6 +4,7 @@ import './App.css';
 import Aside from './Components/Aside/Aside';
 import Header from './Components/Header/Header';
 import Main from './Components/Main/Main';
+import DialogAll from './Components/DialogAll/DialogAll';
 import { Provider } from 'react-redux';
 
 const StyledMain = styled.div`
@@ -15,6 +16,7 @@ const StyledMain = styled.div`
 function App() {
   return (
     <StyledMain className="App">
+      <DialogAll />
       <Aside />
       <Main />
     </StyledMain>
