@@ -27,19 +27,15 @@ import { useSelector } from 'react-redux';
 import DialogAll from '../DialogAll/DialogAll';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const StyledPaper = styled(Paper)`
-  display: grid;
-  grid-template-columns: auto 1fr;
-`;
-
 const StyledClearAllLink = styled.p`
   padding: 0.1rem 0;
-  border-bottom: 1px solid black;
-  /* text-decoration: underline; */
+  text-decoration: underline;
+  text-underline-offset: 6px;
   cursor: pointer;
-  margin-top: 1.5rem;
+  padding-top: 1.5rem;
   margin-bottom: 0.5rem;
-  float: right;
+  text-align: right;
+  width: 100%;
 `;
 
 function UploadTypeSelection() {
@@ -106,17 +102,16 @@ function UploadTypeSelection() {
         >
           Clear all
         </StyledClearAllLink>
-
-        {deleteModal && (
-          <DialogAll
-            text="Are you sure you want to delete all files? You'll have to start
-          uploading process fromthe very beginning."
-            display={deleteModal}
-            displayHandler={setDeleteModalTogle}
-            actionToProceed={deleteALLFilesFromFirebase}
-          />
-        )}
       </SharedPaperStyle>
+      {deleteModal && (
+        <DialogAll
+          text="Are you sure you want to delete all files? You'll have to start
+          uploading process fromthe very beginning."
+          display={deleteModal}
+          displayHandler={setDeleteModalTogle}
+          actionToProceed={deleteALLFilesFromFirebase}
+        />
+      )}
     </>
   );
 }

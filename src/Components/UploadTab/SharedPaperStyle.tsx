@@ -19,7 +19,8 @@ function SharedPaperStyle({
         borderColor: '#eeeeee',
         borderRadius: '16px',
         m: 4,
-        p: 1,
+        py: 1,
+        px: 2,
         height: { height },
       }}
       // elevation={2}
