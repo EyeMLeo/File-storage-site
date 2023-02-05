@@ -41,6 +41,7 @@ const StyledFileNav__Name = styled.div`
 const StyledFileNav__Tools = styled.div`
   display: inline-flex;
   float: right;
+  margin-bottom: 0;
   /* place-content: end; */
   /* align-self: center; */
 `;
@@ -53,7 +54,7 @@ function PDFReader() {
     setNumPages(numPages);
   }
 
-  const [openPDFMOodal, setOpenPDFMOodal] = React.useState(true);
+  const [openPDFMOodal, setOpenPDFMOodal] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpenPDFMOodal(true);
@@ -64,38 +65,37 @@ function PDFReader() {
   };
 
   return (
-    <>
-      <StyledUploadTab>
-        <Accordion
-          sx={{ borderRadius: '16px' }}
-          elevation={4}
-          square={true}
-          expanded={true}
-        >
-          <StyledAccordionDetails>
-            <div>
-              <StyledFileNav>
-                <StyledFileNav__Name>
-                  <NavigateBeforeIcon sx={{ color: 'text.secondary' }} />
-                  <Typography
-                    sx={{ color: 'text.secondary', mx: 2, fontSize: '20px' }}
-                  >
-                    Name of the file.pdf
-                  </Typography>
-                  <NavigateNextIcon sx={{ color: 'text.secondary' }} />
-                </StyledFileNav__Name>
-                <StyledFileNav__Tools>
-                  <PreviewIcon
-                    onClick={handleClickOpen}
-                    sx={{ color: 'text.secondary' }}
-                  />
-                  <FileDownloadIcon sx={{ color: 'text.secondary' }} />
-                </StyledFileNav__Tools>
-              </StyledFileNav>
-              <img src="/IMG/A4.png" alt="blank A4 image" />
-            </div>
-            {/* TO BE CONTINUED WITH REACT-PDF... below */}
-            {/* <div>
+    <StyledUploadTab>
+      <Accordion
+        sx={{ borderRadius: '16px' }}
+        elevation={4}
+        square={true}
+        expanded={true}
+      >
+        <StyledAccordionDetails>
+          <div>
+            <StyledFileNav>
+              <StyledFileNav__Name>
+                <NavigateBeforeIcon sx={{ color: 'text.secondary' }} />
+                <Typography
+                  sx={{ color: 'text.secondary', mx: 2, fontSize: '20px' }}
+                >
+                  Name of the file.pdf
+                </Typography>
+                <NavigateNextIcon sx={{ color: 'text.secondary' }} />
+              </StyledFileNav__Name>
+              <StyledFileNav__Tools>
+                <PreviewIcon
+                  onClick={handleClickOpen}
+                  sx={{ color: 'text.secondary' }}
+                />
+                <FileDownloadIcon sx={{ color: 'text.secondary' }} />
+              </StyledFileNav__Tools>
+            </StyledFileNav>
+            <img src="/IMG/A4.png" alt="blank A4 image" />
+          </div>
+          {/* TO BE CONTINUED WITH REACT-PDF... below */}
+          {/* <div>
               <Document
                 file="https://www.africau.edu/images/default/sample.pdf"
                 onLoadSuccess={onDocumentLoadSuccess}
@@ -106,15 +106,14 @@ function PDFReader() {
                 Page {pageNumber} of {numPages}
               </p>
             </div> */}
-          </StyledAccordionDetails>
-        </Accordion>
-      </StyledUploadTab>
+        </StyledAccordionDetails>
+      </Accordion>
       <PDFModal
         display={openPDFMOodal}
         displayHandler={setOpenPDFMOodal}
         handleClose={handleClose}
       />
-    </>
+    </StyledUploadTab>
   );
 }
 export default PDFReader;

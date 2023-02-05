@@ -13,6 +13,7 @@ import { Button } from '@mui/material';
 // x Laikinas aprasymas
 const StyledUploadTab = styled.div`
   padding: 30px;
+  padding-bottom: 0;
   height: 100%;
 `;
 
@@ -82,7 +83,7 @@ function UploadTab() {
         sx={{ borderRadius: '16px' }}
         elevation={4}
         square={true}
-        expanded={true}
+        // expanded={false}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

@@ -15,13 +15,21 @@ const StyledContentBox = styled(Paper)`
   height: calc(100% - 150px);
 `;
 
+const StyledBar = styled.div`
+  height: fit-content;
+`;
+
 function ContentBox() {
   return (
     <StyledContentBox sx={{ borderRadius: '30px' }} elevation={4}>
-      <UploadTypeSelection />
-      <UploadTab />
-      <ListOfUploads />
-      <PDFReader />
+      <StyledBar>
+        <UploadTypeSelection />
+        <ListOfUploads />
+      </StyledBar>
+      <StyledBar className="TEST">
+        <UploadTab />
+        <PDFReader />
+      </StyledBar>
     </StyledContentBox>
   );
 }
