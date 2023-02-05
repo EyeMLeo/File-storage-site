@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import UploadTab from '../UploadTab/UploadTab';
 import ListOfUploads from '../UploadTab/ListOfUploads';
 import UploadTypeSelection from '../UploadTab/UploadTypeSelection';
+import PDFReader from '../PDFReader/PDFReader';
 
 const StyledContentBox = styled(Paper)`
   display: grid;
@@ -20,6 +21,7 @@ function ContentBox() {
       <UploadTypeSelection />
       <UploadTab />
       <ListOfUploads />
+      <PDFReader />
     </StyledContentBox>
   );
 }
