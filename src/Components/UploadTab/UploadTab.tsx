@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { storage } from '../../Firebase';
+import { firebseDataNameHander, storage } from '../../Firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import { Button } from '@mui/material';
 import { FireBaseContext } from '../FireBaseContext/FireBaseContext';
@@ -65,8 +65,10 @@ function UploadTab() {
     // console.log('uploadFile ===', uploadFile[0]);
     // console.log('Object values ===', Object.values(uploadFile[0]));
     uploadBytes(fileRef, uploadFile[0]).then(() => {
-      alert('File uploaded');
       setUploadFile(null);
+    });
+    firebseDataNameHander().then((res) => {
+      setDisplayNames(res);
     });
   }
 
@@ -134,8 +136,13 @@ function UploadTab() {
                 <>
                   <h3>{`File name - ${uploadFile[0].name}`}</h3>
                   <StyledButton
-                    sx={{ display: 'block', minWidth: '200px', mt: 1 }}
+                    sx={{
+                      display: 'block',
+                      minWidth: '200px',
+                      mt: 1,
+                    }}
                     variant="contained"
+                    color="secondary"
                     onClick={uploadFileFn}
                   >
                     Confirm upload

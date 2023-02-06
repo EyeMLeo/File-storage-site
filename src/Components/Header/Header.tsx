@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import HomeIcon from '@mui/icons-material/Home';
 import Notifications from '@mui/icons-material/Notifications';
 import { Avatar, Badge } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -15,7 +16,12 @@ const StyledHeader = styled.header`
 function Header() {
   return (
     <StyledHeader>
-      <h3>EN</h3>
+      <Typography
+        sx={{ color: 'text.secondary', fontWeight: 'bold' }}
+        variant="h6"
+      >
+        EN
+      </Typography>
       <Badge sx={{ m: 2 }} badgeContent={1} color="error">
         <Notifications color="action" />
       </Badge>
