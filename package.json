@@ -2,12 +2,12 @@
   "name": "doclogix-uzduotis",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "vite build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
