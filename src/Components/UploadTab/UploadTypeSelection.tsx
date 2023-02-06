@@ -17,6 +17,7 @@ import {
 import * as React from 'react';
 import styled from 'styled-components';
 import CheckBoxLine from './CheckBoxLine';
+import CheckBoxLinePDF from './CheckBoxLinePDF';
 import SharedPaperStyle from './SharedPaperStyle';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -30,7 +31,7 @@ function UploadTypeSelection() {
     <>
       <SharedPaperStyle heading="Type of document" height="180px">
         <CheckBoxLine />
-        <CheckBoxLine />
+        <CheckBoxLinePDF />
       </SharedPaperStyle>
     </>
   );

@@ -53,6 +53,14 @@ const StyledTypography = styled(Typography)`
   padding: 0 0.8rem;
 `;
 
+const hoverIconStyle = {
+  color: 'text.secondary',
+
+  '&:hover': {
+    color: 'error.main',
+  },
+};
+
 function FileNameLine({
   fileName = 'File name 123.pdf',
   idPass,
@@ -96,7 +104,7 @@ function FileNameLine({
 
               // remove(e.target);
             }}
-            sx={{ color: 'text.secondary' }}
+            sx={hoverIconStyle}
           />
         </div>
       </StyledFileNamePaper>

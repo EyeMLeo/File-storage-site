@@ -8,6 +8,7 @@ import { Provider } from 'react-redux/es/exports';
 // import store from './Components/store';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import CombinedReducers from './Components/Reducers/CombinedReducers';
+import { FireBaseContext } from './Components/FireBaseContext/FireBaseContext';
 
 const theme = createTheme({
   palette: {

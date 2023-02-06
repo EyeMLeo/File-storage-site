@@ -23,8 +23,10 @@ import CreateOutlined from '@mui/icons-material/CreateOutlined';
 import FileNameLine from './FileNameLine';
 import { listAll, storage, firebseDataNameHander } from '../../Firebase';
 import { deleteObject, FullMetadata, ref } from 'firebase/storage';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import DialogAll from '../DialogAll/DialogAll';
+import { fetchingFireBaseDataTrue } from '../Actions/FetchingFireBaseDataActions';
+import { FireBaseContext } from '../FireBaseContext/FireBaseContext';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const StyledClearAllLink = styled.p`
@@ -63,16 +65,24 @@ function UploadTypeSelection() {
   };
 
   // const [displayNames, setdisplayNames] = React.useState([]);
-  const [displayNames, setDisplayNames] = React.useState<FullMetadata[]>([]);
+  // const [displayNames, setDisplayNames] = React.useState<FullMetadata[]>([]);
+  const { displayNames, setDisplayNames, isLoading, setIsLoading }: any =
+    React.useContext(FireBaseContext);
 
-  React.useEffect(() => {
-    firebseDataNameHander().then((res) => {
-      setDisplayNames(res);
-    });
-  }, []);
+  const ReducerFileDataArr = useSelector(
+    (state: any) => state.FetchingFireBaseData
+  );
+
+  const dispatch = useDispatch();
+
+  // React.useEffect(() => {
+  //   firebseDataNameHander().then((res) => {
+  //     setDisplayNames(res);
+  //   });
+  // }, []);
 
   function deleteALLFilesFromFirebase() {
-    displayNames.forEach((element) => {
+    displayNames.forEach((element: any) => {
       // Firebase Part
       const deleteASingleFile = ref(storage, element.fullPath);
       // Delete the file
@@ -83,7 +93,7 @@ function UploadTypeSelection() {
   return (
     <>
       <SharedPaperStyle heading="List of uploads">
-        {displayNames.map((element) => {
+        {displayNames.map((element: any) => {
           return (
             <FileNameLine
               idPass={`${element.generation}`}

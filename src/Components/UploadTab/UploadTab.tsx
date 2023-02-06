@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { storage } from '../../Firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import { Button } from '@mui/material';
+import { FireBaseContext } from '../FireBaseContext/FireBaseContext';
 
 // x Laikinas aprasymas
 const StyledUploadTab = styled.div`
@@ -34,6 +35,9 @@ const HideFileInput = styled.input`
 const StyledBrowseLabel = styled.label`
   text-decoration: underline;
   cursor: pointer;
+  padding-left: 0.5rem;
+  color: #850c81;
+  text-underline-offset: 4px;
 `;
 
 const StyledButton = styled(Button)`
@@ -42,6 +46,11 @@ const StyledButton = styled(Button)`
   margin-top: 0.5rem;
   border: 1px black solid;
   color: 'primary.main';
+`;
+
+const StyledDropInstructions = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 function UploadTab() {
@@ -77,15 +86,25 @@ function UploadTab() {
     setIsDragging(false);
   }
 
+  const { displayNames, setDisplayNames, isLoading, setIsLoading }: any =
+    React.useContext(FireBaseContext);
+
+  const [acordionDisplay, SetAcordionDisplay] = React.useState(false);
+
+  function SetAcordionDisplayHandler() {
+    SetAcordionDisplay((prev) => !prev);
+  }
+
   return (
     <StyledUploadTab>
       <Accordion
         sx={{ borderRadius: '16px' }}
         elevation={4}
         square={true}
-        // expanded={false}
+        expanded={!displayNames[0] || acordionDisplay}
       >
         <AccordionSummary
+          onClick={SetAcordionDisplayHandler}
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -137,10 +156,13 @@ function UploadTab() {
               {!uploadFile && (
                 <>
                   <h3>Select files</h3>
-                  <p>
-                    Drop files here or click{' '}
-                    <StyledBrowseLabel htmlFor="file">browse</StyledBrowseLabel>
-                  </p>
+                  <StyledDropInstructions>
+                    <p>Drop files here or click </p>
+                    <StyledBrowseLabel htmlFor="file">
+                      {' '}
+                      browse
+                    </StyledBrowseLabel>
+                  </StyledDropInstructions>
                   <HideFileInput
                     type="file"
                     id="file"
