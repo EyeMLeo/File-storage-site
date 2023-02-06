@@ -59,15 +59,16 @@ function UploadTab() {
   );
   const [isDragging, setIsDragging] = React.useState(false);
 
-  function uploadFileFn() {
+  async function uploadFileFn() {
     if (uploadFile === null) return;
     const fileRef = ref(storage, `${uploadFile[0].name}`);
     // console.log('uploadFile ===', uploadFile[0]);
     // console.log('Object values ===', Object.values(uploadFile[0]));
-    uploadBytes(fileRef, uploadFile[0]).then(() => {
+    await uploadBytes(fileRef, uploadFile[0]).then(() => {
       setUploadFile(null);
     });
-    firebseDataNameHander().then((res) => {
+
+    await firebseDataNameHander().then((res) => {
       setDisplayNames(res);
     });
   }

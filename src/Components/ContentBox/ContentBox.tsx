@@ -32,7 +32,8 @@ function ContentBox() {
   const { displayNames, setDisplayNames, isLoading, setIsLoading }: any =
     React.useContext(FireBaseContext);
 
-  console.log(!!displayNames[0]);
+  console.log(displayNames[0]);
+  // console.log(!!displayNames);
 
   return (
     <StyledContentBox sx={{ borderRadius: '30px' }} elevation={4}>
